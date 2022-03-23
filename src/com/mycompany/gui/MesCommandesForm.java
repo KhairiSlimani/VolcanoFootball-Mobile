@@ -143,7 +143,7 @@ public class MesCommandesForm extends BaseForm {
 
         // End Design
 
-        ArrayList<Commande>list = ServiceCommande.getInstance().AfficherCommandes(1);
+        ArrayList<Commande>list = ServiceCommande.getInstance().AfficherCommandes(SessionManager.getId());
 
 
         int i = 0;

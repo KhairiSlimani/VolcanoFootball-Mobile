@@ -14,6 +14,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import com.mycompany.gui.ListProduitsForm;
 import com.mycompany.gui.MesCommandesForm;
+import com.mycompany.gui.SignInForm;
 import com.mycompany.gui.SignUpForm;
 
 public class MyApplication {
@@ -45,9 +46,7 @@ public class MyApplication {
             current.show();
             return;
         }
-        new ListProduitsForm(theme).show();
-        //new SignUpForm(theme).show();
-        //new MesCommandesForm(theme).show();
+        new SignInForm(theme).show();
     }
 
     public void stop() {

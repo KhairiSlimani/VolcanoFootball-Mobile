@@ -163,7 +163,7 @@ public class AjouterCommande extends BaseForm {
                     InfiniteProgress ip = new InfiniteProgress();
                     final Dialog iDialog = ip.showInfiniteBlocking();
                     
-                    Commande c = new Commande(1, p.getId(),Integer.parseInt(String.valueOf(quantite.getText()).toString()),String.valueOf(adresse.getText()).toString() );
+                    Commande c = new Commande(SessionManager.getId(), p.getId(),Integer.parseInt(String.valueOf(quantite.getText()).toString()),String.valueOf(adresse.getText()).toString() );
 
 
                     System.out.println("data commande == "+c);
