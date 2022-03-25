@@ -32,26 +32,26 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.entities.Joueur;
 import com.mycompany.entities.Equipe;
-import com.mycompany.services.ServiceEquipe;
+import com.mycompany.services.ServiceJoueur;
 import java.util.ArrayList;
 
 /**
  *
  * @author jrady
  */
-public class ListEquipeForm  extends BaseForm {
-    
+public class DetailEquipe extends BaseForm {
      Form current;
       
-      public ListEquipeForm (Resources res)
+      public DetailEquipe (Resources res, int equipe)
     {
         super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         current=this;
         setToolbar(tb);
         getTitleArea().setUIID("Container");
-        setTitle("Liste des Equipes");
+        setTitle("Liste des Joueurs");
         getContentPane().setScrollVisible(false);
 
         super.addSideMenu(res);
@@ -109,9 +109,10 @@ public class ListEquipeForm  extends BaseForm {
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton equipes = RadioButton.createToggle("Equipe", barGroup);
         equipes.setUIID("SelectBar");
+        RadioButton joueurs = RadioButton.createToggle("Joueur", barGroup);
+        joueurs.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
-
-
+        
         equipes.addActionListener((e) -> {
             InfiniteProgress ip = new InfiniteProgress();
 
@@ -122,19 +123,28 @@ public class ListEquipeForm  extends BaseForm {
             refreshTheme();
         });
 
+        joueurs.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+            new DetailEquipe(res,equipe).show();
+                   
+            refreshTheme();
+        });
+
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(1, equipes),
+                GridLayout.encloseIn(2,equipes ,joueurs),
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        equipes.setSelected(true);
+        joueurs.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(equipes, arrow);
+            updateArrowPosition(joueurs, arrow);
         });
-        bindButtonSelection(equipes, arrow);
+        bindButtonSelection(joueurs, arrow);
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
@@ -142,23 +152,20 @@ public class ListEquipeForm  extends BaseForm {
 
         // End Design
 
-        ArrayList<Equipe>list = ServiceEquipe.getInstance().AfficherEquipes();
+        ArrayList<Joueur>list = ServiceJoueur.getInstance().DetailJoueur(equipe);
         
-        for(Equipe e : list)
+        for(Joueur joueur : list)
         {
-            String urlImage = "http://localhost/VolcanoFootball/uploads/images/"+e.getDrapeau_equipe();
+            String urlImage = "http://localhost/VolcanoFootball/uploads/images/"+joueur.getPhoto();
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
-            addEquipe(urlim,e,res);
+            addJoueur(urlim,joueur,res);
             ScaleImageLabel image = new ScaleImageLabel(urlim);
-            
+            Container containerImg = new Container();
             image.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-            
-            
-            
         }
-        
+
          
     }
        private void addTab(Tabs swipe, Label spacer ,Image image, String string, String text, Resources res) {
@@ -214,7 +221,7 @@ public class ListEquipeForm  extends BaseForm {
         l.getParent().repaint();
     }
     
-    private void addEquipe(Image img,Equipe j, Resources res) {
+    private void addJoueur(Image img,Joueur j, Resources res) {
 
 
         int height = Display.getInstance().convertToPixels(16f);
@@ -223,42 +230,30 @@ public class ListEquipeForm  extends BaseForm {
         Button image = new Button(img.fill(width, height));
         image.setUIID("Label");
         Container cnt = BorderLayout.west(image);
-        //Label idTxt = new Label("ID : "+j.getId(),"NewsTopLine2");
-        Label nomTxt = new Label("Nom : "+j.getNom_equipe(),"NewsTopLine2");
-        Label nomentreneurTxt = new Label("Nom Entreneur : "+j.getNom_entreneur(),"NewsTopLine2");
-        Label DatecreationTxt = new Label("Date Creation : "+j.getDate_creation(),"NewsTopLine2");
-        Label lDetailEquipe = new Label("Détails Equipe");
-        lDetailEquipe.setUIID("NewsTopLine");
-        Style DetailEquipeStyle = new Style(lDetailEquipe.getUnselectedStyle());
-        DetailEquipeStyle.setFgColor(0xf7ad02);
-        lDetailEquipe.setTextPosition(RIGHT);
-
-        lDetailEquipe.addPointerPressedListener(l -> {
-            
-            new DetailEquipe(res,j.getId()).show();
-            refreshTheme();
-            
-
-        });
-        SpanLabel d = new SpanLabel("-----------------------");
+          
+        Label nomTxt = new Label("Nom : "+j.getNom_joueur(),"NewsTopLine2");
+        Label prenomTxt = new Label("Prenom : "+j.getPrenom_joueur(),"NewsTopLine2");
+        Label ageTxt = new Label("Age : "+j.getAge(),"NewsTopLine2");
+        Label positionTxt = new Label("Position: "+j.getPosition(),"NewsTopLine2");
+       
+        SpanLabel d = new SpanLabel("-------------------");
        
 
 
         cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
-            
+
             BoxLayout.encloseX(nomTxt),
-            BoxLayout.encloseX(nomentreneurTxt),
-            BoxLayout.encloseX(DatecreationTxt),
-            BoxLayout.encloseX(lDetailEquipe),
+            BoxLayout.encloseX(prenomTxt),
+            BoxLayout.encloseX(ageTxt),
+            BoxLayout.encloseX(positionTxt),
+          
             BoxLayout.encloseX(d)
             
           
         ));
 
         add(cnt);
-        
            
     }
-
     
 }

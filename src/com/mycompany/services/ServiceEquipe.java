@@ -67,7 +67,7 @@ public class ServiceEquipe {
                         String date_creation = obj.get("date_creation").toString().substring(0 , 10);
                         String drapeau_equipe = obj.get("drapeau_equipe").toString();
                         //String description = obj.get("Description").toString();
-                   
+                        e.setId((int)id);
                         e.setNom_equipe(nom_equipe);
                         e.setNom_entreneur(nom_entreneur);
                         e.setDate_creation(date_creation);
@@ -90,6 +90,51 @@ public class ServiceEquipe {
         return result;
     
     }
+      public ArrayList<Equipe> NomEquipes()
+    {
+
+        ArrayList<Equipe> result = new ArrayList<>();
+        String url = Statics.BASE_URL+"/api/equipeafficher";
+        req.setUrl(url);
+
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                
+                JSONParser jsonp;
+                jsonp = new JSONParser();
+                
+                try 
+                {
+                    Map<String,Object>mapEquipes = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+                    List<Map<String,Object>> ListOfMaps = (List<Map<String,Object>>) mapEquipes.get("root");
+                    for(Map<String, Object> obj : ListOfMaps)
+                    {
+                        Equipe e = new Equipe();
+                        
+                        float id = Float.parseFloat(obj.get("id").toString());             
+                        String nom_equipe = obj.get("nom_equipe").toString();
+                       
+                        e.setId((int)id);
+                        e.setNom_equipe(nom_equipe);
+                                   
+                        result.add(e);
+                    }
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return result;
+    
+    }
+     
 
     
     

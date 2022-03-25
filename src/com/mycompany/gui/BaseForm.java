@@ -81,6 +81,7 @@ public class BaseForm extends Form {
                 FlowLayout.encloseCenterBottom(
                         new Label( "Volcano Football Application"))
         ));
+        tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_SPORTS_SOCCER, e -> new Statequipe(res).show());
         tb.addMaterialCommandToSideMenu("Equipe", FontImage.MATERIAL_SPORTS_SOCCER, e -> new ListEquipeForm(res).show());
         tb.addMaterialCommandToSideMenu("Joueur", FontImage.MATERIAL_FACE, e -> new ListJoueurForm(res).show());
         tb.addMaterialCommandToSideMenu("Notre Boutique", FontImage.MATERIAL_ADD_SHOPPING_CART, e -> new ListProduitsForm(res).show());

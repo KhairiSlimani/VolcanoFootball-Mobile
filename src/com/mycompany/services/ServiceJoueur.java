@@ -10,80 +10,75 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
+import com.mycompany.entities.Equipe;
 import com.mycompany.entities.Joueur;
 import com.mycompany.utils.Statics;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  *
  * @author jrady
  */
 public class ServiceJoueur {
-    
+
     public static ServiceJoueur instance = null;
 
     public static boolean resultOk = true;
 
     private ConnectionRequest req;
 
-    public static ServiceJoueur getInstance()
-    {
-        if(instance == null)
+    public static ServiceJoueur getInstance() {
+        if (instance == null) {
             instance = new ServiceJoueur();
-        return instance;  
+        }
+        return instance;
 
     }
 
-    public ServiceJoueur()
-    {
+    public ServiceJoueur() {
         req = new ConnectionRequest();
     }
-     public ArrayList<Joueur> AfficherJoueurs()
-    {
+
+    public ArrayList<Joueur> AfficherJoueurs() {
 
         ArrayList<Joueur> result = new ArrayList<>();
-        String url = Statics.BASE_URL+"/api/joueurafficher";
+        String url = Statics.BASE_URL + "/api/joueurafficher";
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                
+
                 JSONParser jsonp;
                 jsonp = new JSONParser();
-                
-                try 
-                {
-                    Map<String,Object>mapJoueurs = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
-                    List<Map<String,Object>> ListOfMaps = (List<Map<String,Object>>) mapJoueurs.get("root");
-                    for(Map<String, Object> obj : ListOfMaps)
-                    {
+
+                try {
+                    Map<String, Object> mapJoueurs = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+                    List<Map<String, Object>> ListOfMaps = (List<Map<String, Object>>) mapJoueurs.get("root");
+                    for (Map<String, Object> obj : ListOfMaps) {
                         Joueur j = new Joueur();
-                        
-                        float id = Float.parseFloat(obj.get("id").toString());             
+
+                        float id = Float.parseFloat(obj.get("id").toString());
                         String nom_joueur = obj.get("nom_joueur").toString();
                         String prenom_joueur = obj.get("prenom_joueur").toString();
                         String position = obj.get("position").toString();
-                        float age = Float.parseFloat(obj.get("age").toString());   
+                        float age = Float.parseFloat(obj.get("age").toString());
                         String photo = obj.get("photo").toString();
                         //String description = obj.get("Description").toString();
-                   
+
                         j.setNom_joueur(nom_joueur);
                         j.setPrenom_joueur(prenom_joueur);
                         //j.setDescription(description);
-                        j.setAge((int)age);
+                        j.setAge((int) age);
                         j.setPhoto(photo);
                         j.setPosition(position);
-                        
-                                           
+
                         result.add(j);
                     }
-                }
-                catch(Exception ex)
-                {
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
 
@@ -93,8 +88,108 @@ public class ServiceJoueur {
         NetworkManager.getInstance().addToQueueAndWait(req);
 
         return result;
-    
+
     }
 
-    
+    public ArrayList<Joueur> DetailJoueur(int id) {
+
+         ArrayList<Joueur> result = new ArrayList<>();
+        String url = Statics.BASE_URL + "/api/ListJoueurByEquipeMobile?id="+id;
+        req.setUrl(url);
+
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+
+                JSONParser jsonp;
+                jsonp = new JSONParser();
+                System.out.println("id equipe entrer : "+id);
+       
+           
+        
+                try {
+                    Map<String, Object> mapJoueurs = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+                    List<Map<String, Object>> ListOfMaps = (List<Map<String, Object>>) mapJoueurs.get("root");
+                    for (Map<String, Object> obj : ListOfMaps) {
+                        Joueur j = new Joueur();
+
+                        float id = Float.parseFloat(obj.get("id").toString());
+                        String nom_joueur = obj.get("nom_joueur").toString();
+                        String prenom_joueur = obj.get("prenom_joueur").toString();
+                        String position = obj.get("position").toString();
+                        float age = Float.parseFloat(obj.get("age").toString());
+                        String photo = obj.get("photo").toString();
+                        //String description = obj.get("Description").toString();
+
+                        j.setNom_joueur(nom_joueur);
+                        j.setPrenom_joueur(prenom_joueur);
+                        //j.setDescription(description);
+                        j.setAge((int) age);
+                        j.setPhoto(photo);
+                        j.setPosition(position);
+
+                        result.add(j);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return result;
+
+
+    }
+    public ArrayList<Joueur> NbrJoueur(int id) {
+
+         ArrayList<Joueur> result = new ArrayList<>();
+        String url = Statics.BASE_URL + "/api/ListJoueurByEquipeMobile?id="+id;
+        req.setUrl(url);
+        int nbr = 0;
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+
+                JSONParser jsonp;
+                jsonp = new JSONParser();
+                System.out.println("id equipe entrer : "+id);
+                
+       
+           
+        
+                try {
+                    Map<String, Object> mapJoueurs = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+                    List<Map<String, Object>> ListOfMaps = (List<Map<String, Object>>) mapJoueurs.get("root");
+                    for (Map<String, Object> obj : ListOfMaps) {
+                        Joueur j = new Joueur();
+
+                        
+                        String nom_joueur = obj.get("nom_joueur").toString();
+                        
+                        j.setNom_joueur(nom_joueur);
+                        
+
+                        result.add(j);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                
+                System.out.println("Size : "+result.size());
+                
+            }
+        });
+                   nbr=result.size();
+        System.out.println("Size1 : "+result.size());
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        return result;
+
+
+    }
+
+
 }
