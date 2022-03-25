@@ -48,9 +48,7 @@ public class SignInForm extends BaseForm {
         }
         getTitleArea().setUIID("Container");
         setUIID("SignIn");
-        
-        add(BorderLayout.NORTH, new Label(res.getImage("Logo.png"), "LogoLabel"));
-        
+                
         TextField username = new TextField("", "Username", 20, TextField.ANY);
         TextField password = new TextField("", "Password", 20, TextField.PASSWORD);
         username.setSingleLineTextArea(false);
@@ -60,14 +58,19 @@ public class SignInForm extends BaseForm {
         signUp.addActionListener(e -> new SignUpForm(res).show());
         signUp.setUIID("Link");
         Label doneHaveAnAccount = new Label("Vous n'avez pas de compte ?");
-        
+
+        Button resetPassword = new Button("Mot de passe oublié?");
+        resetPassword.setUIID("Link");
+        resetPassword.addActionListener(e -> new ResetPasswordForm(res).show());        
+
         Container content = BoxLayout.encloseY(
                 new FloatingHint(username),
                 createLineSeparator(),
                 new FloatingHint(password),
                 createLineSeparator(),
                 signIn,
-                FlowLayout.encloseCenter(doneHaveAnAccount, signUp)
+                FlowLayout.encloseCenter(doneHaveAnAccount, signUp),
+                FlowLayout.encloseCenter(resetPassword)
         );
         content.setScrollableY(true);
         add(BorderLayout.SOUTH, content);

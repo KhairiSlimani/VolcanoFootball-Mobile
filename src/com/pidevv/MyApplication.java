@@ -14,6 +14,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import com.mycompany.gui.ListProduitsForm;
 import com.mycompany.gui.MesCommandesForm;
+import com.mycompany.gui.ProfileForm;
 import com.mycompany.gui.SignInForm;
 import com.mycompany.gui.SignUpForm;
 

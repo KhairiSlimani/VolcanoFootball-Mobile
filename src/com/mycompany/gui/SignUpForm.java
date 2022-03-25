@@ -41,6 +41,7 @@ import com.mycompany.services.ServiceUser;
 public class SignUpForm extends BaseForm {
 
     public SignUpForm(Resources res) {
+
         super(new BorderLayout());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);
@@ -86,6 +87,7 @@ public class SignUpForm extends BaseForm {
                 createLineSeparator()
 
         );
+
         content.setScrollableY(true);
         add(BorderLayout.CENTER, content);
         add(BorderLayout.SOUTH, BoxLayout.encloseY(

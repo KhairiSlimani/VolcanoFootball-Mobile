@@ -54,32 +54,29 @@ public class SessionManager {
          pref.set("email",email);
     }
 
-    public static String getPassowrd() {
+    public static String getPassword() {
         return pref.get("password",password);
     }
 
-    public static void setPassowrd(String passowrd) {
-         pref.set("passowrd",passowrd);
+    public static void setPassword(String password) {
+         pref.set("password",password);
     }
 
     public static String getNom() {
-        return pref.get("password",nom);
+        return pref.get("nom",nom);
     }
 
-    public static void setNom(String passowrd) {
-         pref.set("passowrd",nom);
+    public static void setNom(String nom) {
+         pref.set("nom",nom);
     }
 
     public static String getPrenom() {
-        return pref.get("password",prenom);
+        return pref.get("prenom",prenom);
     }
 
-    public static void setPrenom(String passowrd) {
-         pref.set("passowrd",prenom);
+    public static void setPrenom(String prenom) {
+         pref.set("prenom",prenom);
     }
 
-
- 
-  
     
 }
