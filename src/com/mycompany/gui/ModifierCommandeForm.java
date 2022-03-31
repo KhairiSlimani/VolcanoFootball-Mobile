@@ -184,7 +184,6 @@ public class ModifierCommandeForm extends BaseForm {
     }
 
 
-
     private void addTab(Tabs swipe, Label spacer ,Image image, String string, String text, Resources res) {
 
         int size = Math.min(Display.getInstance().getDisplayWidth(), Display.getInstance().getDisplayHeight());

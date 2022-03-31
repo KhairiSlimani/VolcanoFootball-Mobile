@@ -153,9 +153,6 @@ public class MesCommandesForm extends BaseForm {
             addCommande(c,res,i);
         }
 
-        
-        
-
     }
 
 
@@ -191,7 +188,6 @@ public class MesCommandesForm extends BaseForm {
         );
 
         swipe.addTab("",res.getImage("back-logo.jpeg"), page1);
-
 
     }
 

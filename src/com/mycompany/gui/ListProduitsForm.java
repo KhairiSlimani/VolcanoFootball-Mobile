@@ -33,6 +33,7 @@ import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompany.entities.Produit;
+import com.mycompany.services.ServiceFavori;
 import com.mycompany.services.ServiceProduit;
 import java.util.ArrayList;
 
@@ -243,12 +244,25 @@ public class ListProduitsForm extends BaseForm {
 
         });
 
+        Label lFavori = new Label(" ");
+        lFavori.setUIID("NewsTopLine");
+        Style favoriStyle = new Style(lFavori.getUnselectedStyle());
+        favoriStyle.setFgColor(0xf7ad02);
+
+        FontImage favoriImage = FontImage.createMaterial(FontImage.MATERIAL_FAVORITE, favoriStyle);
+        lFavori.setIcon(favoriImage);
+        lFavori.setTextPosition(RIGHT);
+
+        lFavori.addPointerPressedListener(l -> {
+            ServiceFavori.getInstance().AjouterFavori(SessionManager.getId(), p.getId());
+        });
+
         cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
 
             BoxLayout.encloseX(nomTxt),
             BoxLayout.encloseX(typeTxt),
             BoxLayout.encloseX(prixTxt),
-            BoxLayout.encloseX(margin, lDetailProduit)
+            BoxLayout.encloseX(margin, lDetailProduit, lFavori)
 
         ));
 

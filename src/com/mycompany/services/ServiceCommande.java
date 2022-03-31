@@ -13,6 +13,7 @@ import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.entities.Commande;
 import com.mycompany.entities.Produit;
+import com.mycompany.gui.SessionManager;
 import com.mycompany.utils.Statics;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,7 +133,7 @@ public class ServiceCommande {
 
     public boolean ModifierCommande(Commande commande)
     {
-        String url = Statics.BASE_URL+"/ModifierCommandeMobile?id="+commande.getId()+"&user=1&produit=2&quantite="+commande.getQuantite()+"&adresse="+commande.getAdresse();
+        String url = Statics.BASE_URL+"/ModifierCommandeMobile?id="+commande.getId()+"&user="+ SessionManager.getId()+"&produit=2&quantite="+commande.getQuantite()+"&adresse="+commande.getAdresse();
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {

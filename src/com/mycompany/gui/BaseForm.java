@@ -86,6 +86,10 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Profile", FontImage.MATERIAL_ACCOUNT_BOX, e -> new ProfileForm(res).show());
         tb.addMaterialCommandToSideMenu("Notre Boutique", FontImage.MATERIAL_ADD_SHOPPING_CART, e -> new ListProduitsForm(res).show());
         tb.addMaterialCommandToSideMenu("Mes Commandes", FontImage.MATERIAL_APP_REGISTRATION, e -> new MesCommandesForm(res).show());
+        tb.addMaterialCommandToSideMenu("Mes Favoris", FontImage.MATERIAL_FAVORITE, e -> new ListFavorisForm(res).show());
+        tb.addMaterialCommandToSideMenu("Agences", FontImage.MATERIAL_FAVORITE, e -> new ListAgencesForm(res).show());
+                tb.addMaterialCommandToSideMenu("Mes réservation", FontImage.MATERIAL_FAVORITE, e -> new ListReservationForm(res).show());
+
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> {
             new SignInForm(res).show();
             SessionManager.pref.clearAll();
