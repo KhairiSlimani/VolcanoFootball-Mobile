@@ -94,6 +94,7 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Mes réservation", FontImage.MATERIAL_FAVORITE, e -> new ListReservationForm(res).show());
         tb.addMaterialCommandToSideMenu("Match", FontImage.MATERIAL_FAVORITE, e -> new ListMatchFront(res).show());
         tb.addMaterialCommandToSideMenu("Match Back", FontImage.MATERIAL_FAVORITE, e -> new ListMatchForm(res).show());
+        tb.addMaterialCommandToSideMenu("Stade", FontImage.MATERIAL_FAVORITE, e -> new ListStadeForm(res).show());
 
         tb.addMaterialCommandToSideMenu("Logout", FontImage.MATERIAL_EXIT_TO_APP, e -> {
             new SignInForm(res).show();
