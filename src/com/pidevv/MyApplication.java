@@ -17,6 +17,7 @@ import com.mycompany.gui.MesCommandesForm;
 import com.mycompany.gui.ProfileForm;
 import com.mycompany.gui.SignInForm;
 import com.mycompany.gui.SignUpForm;
+import com.mycompany.gui.StatistiqueProduits;
 
 public class MyApplication {
 
@@ -47,7 +48,8 @@ public class MyApplication {
             current.show();
             return;
         }
-        new SignInForm(theme).show();
+        //new SignInForm(theme).show();
+        new StatistiqueProduits(theme).show();
     }
 
     public void stop() {

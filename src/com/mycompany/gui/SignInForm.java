@@ -61,7 +61,12 @@ public class SignInForm extends BaseForm {
 
         Button resetPassword = new Button("Mot de passe oublié?");
         resetPassword.setUIID("Link");
-        resetPassword.addActionListener(e -> new ResetPasswordForm(res).show());        
+        resetPassword.addActionListener(e -> new ResetPasswordForm(res).show());
+
+        Button confirmer = new Button("Confirmer votre compte");
+        resetPassword.setUIID("Link");
+        resetPassword.addActionListener(e -> new ConfirmerUserForm(res).show());        
+        
 
         Container content = BoxLayout.encloseY(
                 new FloatingHint(username),

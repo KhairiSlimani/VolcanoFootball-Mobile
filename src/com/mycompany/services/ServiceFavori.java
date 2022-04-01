@@ -11,6 +11,7 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.entities.Favori;
+import com.mycompany.gui.SessionManager;
 import com.mycompany.utils.Statics;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,11 +58,12 @@ public class ServiceFavori {
 
     }
 
-    public ArrayList<Favori> AfficherFavoris(int idUser)
+    public ArrayList<Favori> AfficherFavoris()
     {
 
         ArrayList<Favori> result = new ArrayList<>();
-        String url = Statics.BASE_URL+"/AfficherFavorisMobile?user="+idUser;
+        String url = Statics.BASE_URL+"/AfficherFavorisMobile?user="+SessionManager.getId();
+        System.out.println("Ussssssssssssssssssssssr "+ SessionManager.getId());
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {

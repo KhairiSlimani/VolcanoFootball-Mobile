@@ -148,7 +148,7 @@ public class ListFavorisForm extends BaseForm {
 
 
 
-        ArrayList<Favori>list = ServiceFavori.getInstance().AfficherFavoris(SessionManager.getId());
+        ArrayList<Favori>list = ServiceFavori.getInstance().AfficherFavoris();
 
 
         for(Favori f : list)
@@ -156,6 +156,7 @@ public class ListFavorisForm extends BaseForm {
             int idProduit = f.getIdProduit();
             Produit p = ServiceProduit.getInstance().DetailProduit(idProduit);
             String urlImage = "http://localhost/VolcanoFootball/uploads/"+p.getPhoto();
+            System.out.println("proddddddddddd "+ p.getId() +"phot"+ p.getPhoto());
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);

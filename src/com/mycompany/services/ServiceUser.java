@@ -12,6 +12,7 @@ import com.codename1.ui.ComboBox;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.TextField;
 import com.codename1.ui.util.Resources;
+import com.mycompany.gui.ConfirmerUserForm;
 import com.mycompany.gui.ListProduitsForm;
 import com.mycompany.gui.ProfileForm;
 import com.mycompany.gui.SessionManager;
@@ -66,7 +67,7 @@ public class ServiceUser {
                 String responseData = new String(data);
 
                 System.out.println("data ===>"+responseData);
-                new SignInForm(res).show();
+                new ConfirmerUserForm(res).show();
             }
             );
 
@@ -170,6 +171,37 @@ public class ServiceUser {
         NetworkManager.getInstance().addToQueueAndWait(req);
 
     }
+    
+    public void ConfirmerCompte(String username, String token, Resources res)
+    {
+        String url = Statics.BASE_URL+"/ConfirmationMobile?username="+username+"&token="+token;
+        req.setUrl(url);
+        req.addResponseListener ((e) -> {
+             
+            JSONParser j = new JSONParser();
+            String json = new String(req.getResponseData()) + "";
+
+            if(json.equals("Compte active")) 
+            {
+                Dialog.show("Succès","Compte Activé!","OK",null);
+                new SignInForm(res).show();
+            }
+            else if(json.equals("Compte deja active")) 
+            {
+                Dialog.show("Erreur","Compte Déja Activé!","OK",null);
+            }
+            else
+            {
+                Dialog.show("Erreur","User introuvable!!","OK",null);
+            }
+            
+  
+        });
+
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+    }
+
 
 
 
