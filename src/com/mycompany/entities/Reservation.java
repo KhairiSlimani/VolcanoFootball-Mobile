@@ -13,14 +13,14 @@ import java.util.Date;
 public class Reservation {
    	private int id;
     private int user;
-    private int hebergement;
+    private String hebergement;
 
 private String dateDebut, dateFin;
 
     public Reservation() {
     }
 
-    public Reservation(int id, int user, int hebergement, String dateDebut, String dateFin) {
+    public Reservation(int id, int user, String hebergement, String dateDebut, String dateFin) {
         this.id = id;
         this.user = user;
         this.hebergement = hebergement;
@@ -28,7 +28,7 @@ private String dateDebut, dateFin;
         this.dateFin = dateFin;
     }
 
-    public Reservation(int user, int hebergement, String dateDebut, String dateFin) {
+    public Reservation(int user, String hebergement, String dateDebut, String dateFin) {
         this.user = user;
         this.hebergement = hebergement;
         this.dateDebut = dateDebut;
@@ -51,11 +51,11 @@ private String dateDebut, dateFin;
         this.user = user;
     }
 
-    public int getHebergement() {
+    public String getHebergement() {
         return hebergement;
     }
 
-    public void setHebergement(int hebergement) {
+    public void setHebergement(String hebergement) {
         this.hebergement = hebergement;
     }
 

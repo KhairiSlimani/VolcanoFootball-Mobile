@@ -61,10 +61,8 @@ public class ServiceReservation {
         
         String dateFin = "20"+p33+"-"+p11+"-"+p22;
 
-        
-       
-        
-        String url = Statics.BASE_URL+"/AjouterReservationMobile?user="+reservation.getUser()+"&hebergement="+reservation.getHebergement()+"&dateDebut="+dateDebut+"&dateFin="+dateFin;
+    
+        String url = Statics.BASE_URL+"/AjouterReservationMobile?user="+SessionManager.getId()+"&hebergement="+reservation.getHebergement()+"&dateDebut="+dateDebut+"&dateFin="+dateFin;
         req.setUrl(url);
         req.addResponseListener ((e) -> {
              
@@ -95,9 +93,14 @@ public class ServiceReservation {
                 {
                     Map<String,Object>mapReservations = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
                     List<Map<String,Object>> ListOfMaps = (List<Map<String,Object>>) mapReservations.get("root");
+                    
                     for(Map<String, Object> obj : ListOfMaps)
                     {
                         Reservation r = new Reservation();
+                        
+                        Map<String,Object>heb = (Map<String, Object>) obj.get("hebergement");
+                        String nomH=heb.get("nomH").toString();
+                        
                         float id = Float.parseFloat(obj.get("id").toString());
                         String dateDebut = obj.get("dateDebut").toString().substring(0 , 10);
                         String dateFin = obj.get("dateFin").toString().substring(0 , 10);
@@ -105,7 +108,8 @@ public class ServiceReservation {
                         r.setId((int)id);
                         r.setDateDebut(dateDebut);
                         r.setDateFin(dateFin);
-                                      
+                        r.setHebergement(nomH);
+                        
                         result.add(r);
                     }
                 }
@@ -144,35 +148,6 @@ public class ServiceReservation {
         
     }
 
-    public boolean ModifierReservation(int id,String dateD, String dateF)
-    {
-        String p1 = dateD.substring(0 , 2);
-        String p2 = dateD.substring(3 , 5);
-        String p3 = dateD.substring(6);
-        
-        String dateDebut = "20"+p3+"-"+p1+"-"+p2;
-        
-        String p11 = dateF.substring(0 , 2);
-        String p22 = dateF.substring(3 , 5);
-        String p33 = dateF.substring(6);
-        
-        String dateFin = "20"+p33+"-"+p11+"-"+p22;
-        
-        String url = Statics.BASE_URL+"/ModifierReservationMobile?id="+id+"&user=1&hebergement=6&dateDebut="+dateDebut+"&dateFin="+dateFin;
-        req.addResponseListener(new ActionListener<NetworkEvent>() {
-            @Override
-            public void actionPerformed(NetworkEvent evt) 
-            {
-                resultOk = req.getResponseCode() == 200;
-                req.removeResponseListener(this);
-            }
-        });
-
-        NetworkManager.getInstance().addToQueueAndWait(req);
-
-        return resultOk;
-
-    }
     
     public boolean ModifierR(Reservation r)
     {
@@ -189,7 +164,7 @@ public class ServiceReservation {
         String dateFin = "20"+p33+"-"+p11+"-"+p22;
 
         
-        String url = Statics.BASE_URL+"/ModifierReservationMobile?id="+ r.getId() +"&user=1&hebergement=6&dateDebut="+ dateDebut +"&dateFin=" + dateFin;
+        String url = Statics.BASE_URL+"/ModifierReservationMobile?id="+r.getId()+"&user="+ SessionManager.getId()+"&hebergement="+r.getHebergement()+"&dateDebut="+ dateDebut +"&dateFin=" + dateFin;
         req.setUrl(url);
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {

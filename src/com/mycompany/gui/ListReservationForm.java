@@ -143,7 +143,7 @@ public class ListReservationForm extends BaseForm{
 
         // End Design
 
-        ArrayList<Reservation>list = ServiceReservation.getInstance().AfficherReservations(1);
+        ArrayList<Reservation>list = ServiceReservation.getInstance().AfficherReservations(SessionManager.getId());
 
 
         int i = 0;
@@ -151,6 +151,7 @@ public class ListReservationForm extends BaseForm{
         {
             i++;
             addReservation(r,res,i);
+            
         }
 
         
@@ -220,7 +221,7 @@ public class ListReservationForm extends BaseForm{
         Container cnt = BorderLayout.west(image);
           
         Label CommandeTxt = new Label("Reservation "+i,"NewsTopLine2");
-        Label heb = new Label("Hebr: "+r.getHebergement(),"NewsTopLine2");
+        Label nomH = new Label("Hebergement: "+r.getHebergement(),"NewsTopLine2");
         Label dateDebut = new Label("dateDebut: "+r.getDateDebut(),"NewsTopLine2");
         Label dateFin = new Label("dateFin: "+r.getDateFin(),"NewsTopLine2");
         Label id = new Label("id: "+r.getId(),"NewsTopLine2");
@@ -237,7 +238,7 @@ public class ListReservationForm extends BaseForm{
 
         lSupprimer.addPointerPressedListener(l -> {
             Dialog dig = new Dialog("Suppression");
-            if(dig.show("Suppression", "Vous voulez supprimer ce commande ?", "Annuler", "Oui"))
+            if(dig.show("Suppression", "Vous voulez supprimer cette reservation ?", "Annuler", "Oui"))
             {
                 dig.dispose();
             }
@@ -272,8 +273,8 @@ public class ListReservationForm extends BaseForm{
 
         cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
 
-                BoxLayout.encloseX(heb),
             BoxLayout.encloseX(CommandeTxt),
+            BoxLayout.encloseX(nomH),
             BoxLayout.encloseX(dateDebut),
             BoxLayout.encloseX(dateFin),
            BoxLayout.encloseX( lSupprimer, lModifier)

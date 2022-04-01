@@ -49,9 +49,9 @@ public class MyApplication {
             current.show();
             return;
         }
-        //new SignInForm(theme).show();
+        new SignInForm(theme).show();
         //new StatistiqueProduits(theme).show();
-        new ListMatchForm(theme).show();
+        //new ListMatchForm(theme).show();
     }
 
     public void stop() {

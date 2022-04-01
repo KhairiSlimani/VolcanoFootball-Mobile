@@ -174,7 +174,7 @@ Picker DateFin = new Picker();
                     InfiniteProgress ip = new InfiniteProgress();
                     final Dialog iDialog = ip.showInfiniteBlocking();
                     
-                    Reservation r = new Reservation(1, h.getId(),DateDebut.getText(), DateFin.getText());
+                    Reservation r = new Reservation(1, h.getNomH(),DateDebut.getText(), DateFin.getText());
 
 
                     System.out.println("data reservation == "+r);
@@ -183,7 +183,7 @@ Picker DateFin = new Picker();
 
                     iDialog.dispose();
 
-                    new ListProduitsForm(res).show();
+                    new ListReservationForm(res).show();
                    
                     refreshTheme();
                     
