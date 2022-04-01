@@ -12,6 +12,7 @@ import com.codename1.ui.Toolbar;
 import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
+import com.mycompany.gui.ListMatchForm;
 import com.mycompany.gui.ListProduitsForm;
 import com.mycompany.gui.MesCommandesForm;
 import com.mycompany.gui.ProfileForm;
@@ -49,7 +50,8 @@ public class MyApplication {
             return;
         }
         //new SignInForm(theme).show();
-        new StatistiqueProduits(theme).show();
+        //new StatistiqueProduits(theme).show();
+        new ListMatchForm(theme).show();
     }
 
     public void stop() {

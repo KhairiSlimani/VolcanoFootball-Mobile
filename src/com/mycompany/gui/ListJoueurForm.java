@@ -144,7 +144,7 @@ public class ListJoueurForm extends BaseForm {
         
         for(Joueur j : list)
         {
-            String urlImage = "http://localhost/VolcanoFootball/uploads/images/"+j.getPhoto();
+            String urlImage = "http://localhost/VolcanoFootball/uploads/"+j.getPhoto();
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);

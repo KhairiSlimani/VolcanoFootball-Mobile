@@ -156,7 +156,7 @@ public class DetailEquipe extends BaseForm {
         
         for(Joueur joueur : list)
         {
-            String urlImage = "http://localhost/VolcanoFootball/uploads/images/"+joueur.getPhoto();
+            String urlImage = "http://localhost/VolcanoFootball/uploads/"+joueur.getPhoto();
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);

@@ -146,7 +146,7 @@ public class ListEquipeForm  extends BaseForm {
         
         for(Equipe e : list)
         {
-            String urlImage = "http://localhost/VolcanoFootball/uploads/images/"+e.getDrapeau_equipe();
+            String urlImage = "http://localhost/VolcanoFootball/uploads/"+e.getDrapeau_equipe();
             Image placeHolder = Image.createImage(120, 90);
             EncodedImage enc = EncodedImage.createFromImage(placeHolder, false);
             URLImage urlim = URLImage.createToStorage(enc, urlImage, urlImage, URLImage.RESIZE_SCALE);
