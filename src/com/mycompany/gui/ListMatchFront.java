@@ -24,6 +24,10 @@ import com.codename1.ui.Button;
 import com.codename1.ui.ButtonGroup;
 import com.codename1.ui.Command;
 import com.codename1.ui.Component;
+import static com.codename1.ui.Component.BOTTOM;
+import static com.codename1.ui.Component.CENTER;
+import static com.codename1.ui.Component.LEFT;
+import static com.codename1.ui.Component.RIGHT;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
@@ -53,9 +57,9 @@ import java.util.ArrayList;
  *
  * @author DeLL
  */
-public class ListMatchForm extends BaseForm{
+public class ListMatchFront extends BaseForm{
     Form current;
-    public ListMatchForm(Resources res){
+    public ListMatchFront(Resources res){
      super("Newsfeed",BoxLayout.y());
           
           Toolbar tb = new Toolbar(true);
@@ -121,23 +125,24 @@ public class ListMatchForm extends BaseForm{
         ButtonGroup barGroup = new ButtonGroup();
         RadioButton mesListes = RadioButton.createToggle("Mes Matchs", barGroup);
         mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
-        liste.setUIID("SelectBar");
+        RadioButton Statistique = RadioButton.createToggle("Statistique", barGroup);
+        Statistique.setUIID("SelectBar");
         RadioButton partage = RadioButton.createToggle("Action", barGroup);
         partage.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
 
-        mesListes.addActionListener((e) -> {
+        Statistique.addActionListener((e) -> {
                InfiniteProgress ip = new InfiniteProgress();
         final Dialog ipDlg = ip.showInifiniteBlocking();
+        new StatistiquePieForm(res).show();
         
         
             refreshTheme();
         });
 
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(3, mesListes, Statistique, partage),
                 FlowLayout.encloseBottom(arrow)
         ));
 
@@ -148,7 +153,7 @@ public class ListMatchForm extends BaseForm{
             updateArrowPosition(partage, arrow);
         });
         bindButtonSelection(mesListes, arrow);
-        bindButtonSelection(liste, arrow);
+        bindButtonSelection(Statistique, arrow);
         bindButtonSelection(partage, arrow);
         // special case for rotation
         addOrientationListener(e -> {
@@ -258,45 +263,9 @@ public class ListMatchForm extends BaseForm{
             refreshTheme();
         
         });
-        //Supp Button
-        Label lSupprimer = new Label(" ");
-        lSupprimer.setUIID("NewsTopLine");
-        Style supprimerStyle = new Style(lSupprimer.getUnselectedStyle());
-        supprimerStyle.setFgColor(0xf21f1f);
-        
-        FontImage supprimerImage = FontImage.createMaterial(FontImage.MATERIAL_DELETE, supprimerStyle);
-        lSupprimer.setIcon(supprimerImage);
-        lSupprimer.setTextPosition(RIGHT);
-        //click delete icon
-        lSupprimer.addPointerPressedListener(l -> {
-            
-        Dialog dig = new Dialog("Suppression");
-        if(dig.show("Suppression","Vous voulez supprimer ce Match ?","Annuler","Oui")){
-            dig.dispose();
-        }
-        else{
-            dig.dispose();
-            //n3ayt l supprimer m service match
-            if(ServiceMatch.getInstance().deleteMatch(m.getId())){
-                new ListMatchForm(res).show();
-            }
-        }
-        });
-        //update icon
-        Label lModifier = new Label(" ");
-        lModifier.setUIID("NewsTopLine");
-        Style modifierStyle = new Style(lModifier.getUnselectedStyle());
-        modifierStyle.setFgColor(0xf7ad02);
-        
-        FontImage mFontImage = FontImage.createMaterial(FontImage.MATERIAL_MODE_EDIT, modifierStyle);
-        lModifier.setIcon(mFontImage);
-        lModifier.setTextPosition(LEFT);
-          
-        
-        lModifier.addPointerPressedListener(l ->  {
-            //System.out.println("Hello update");
-            new ModifierMatchForm(res,m).show();
-        });
+       
+       
+       
         
         
         
@@ -307,27 +276,11 @@ public class ListMatchForm extends BaseForm{
                 BoxLayout.encloseX(nomMatcheText),
                 BoxLayout.encloseX(nomArbitreText),
                 //BoxLayout.encloseX(stadeText),
-                BoxLayout.encloseX(tourText,lModifier,lSupprimer),
+                BoxLayout.encloseX(tourText),
                 BoxLayout.encloseX(margin, lDetailMatch)
         ));
         
-        //add(cnt); 
-        add(cnt);
-
-        Button btnAjouter = new Button("Ajouter");
-        addStringValue("", btnAjouter);
-
-        btnAjouter.addActionListener((e) -> {
-
-            new AjoutMatchForm(res).show();
-
-        });
-
-    }
-    private void addStringValue(String s, Component v) {
-
-        add(BorderLayout.west(new Label(s,"PaddedLabel")).add(BorderLayout.CENTER,v));
-        add(createLineSeparator(0xeeeeee));
+        add(cnt); 
 
     }
                 

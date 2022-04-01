@@ -116,39 +116,49 @@ public class AjoutMatchForm extends BaseForm {
         Component.setSameSize(radioContainer, s1, s2);
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
-        ButtonGroup barGroup = new ButtonGroup();
-        RadioButton mesListes = RadioButton.createToggle("Mes Matchs", barGroup);
-        mesListes.setUIID("SelectBar");
-        RadioButton liste = RadioButton.createToggle("Autres", barGroup);
-        liste.setUIID("SelectBar");
-        RadioButton partage = RadioButton.createToggle("Action", barGroup);
-        partage.setUIID("SelectBar");
+            ButtonGroup barGroup = new ButtonGroup();
+        RadioButton produits = RadioButton.createToggle("Match", barGroup);
+        produits.setUIID("SelectBar");
+        RadioButton detailProduit = RadioButton.createToggle("Ajouter Match", barGroup);
+        detailProduit.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
-
-        mesListes.addActionListener((e) -> {
-               InfiniteProgress ip = new InfiniteProgress();
-        final Dialog ipDlg = ip.showInifiniteBlocking();
         
-        //  ListReclamationForm a = new ListReclamationForm(res);
-          //  a.show();
+
+        produits.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+        
+            new ListMatchForm(res).show();
+                   
             refreshTheme();
         });
 
+        detailProduit.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+        
+            new ListMatchForm(res).show();
+                   
+            refreshTheme();
+        });
+
+
         add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, mesListes, liste, partage),
+                GridLayout.encloseIn(2, produits, detailProduit),
                 FlowLayout.encloseBottom(arrow)
         ));
 
-        partage.setSelected(true);
+        detailProduit.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(partage, arrow);
+            updateArrowPosition(detailProduit, arrow);
         });
-        bindButtonSelection(mesListes, arrow);
-        bindButtonSelection(liste, arrow);
-        bindButtonSelection(partage, arrow);
+        bindButtonSelection(produits, arrow);
+        bindButtonSelection(detailProduit, arrow);
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);
@@ -202,8 +212,8 @@ public class AjoutMatchForm extends BaseForm {
                                               String.valueOf(NomArbitre.getText()).toString(),
                                               String.valueOf(Stade.getText()).toString(),
                                               String.valueOf(Tour.getText()).toString(),
-                                String.valueOf(Photo.getText()).toString(),
-                                String.valueOf(Description.getText()).toString()
+                                              String.valueOf(Photo.getText()).toString(),
+                                              String.valueOf(Description.getText()).toString()
                                 );
                         
                         System.out.println("data Matche == "+m);

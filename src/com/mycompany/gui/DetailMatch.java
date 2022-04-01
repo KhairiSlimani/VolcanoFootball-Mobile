@@ -46,6 +46,7 @@ import java.util.ArrayList;
 public class DetailMatch extends BaseForm {
 
     Form current;
+    private Resources theme;
 
     public DetailMatch (Resources res,Matche m)
     {
@@ -125,7 +126,7 @@ public class DetailMatch extends BaseForm {
 
             final Dialog ipDlg = ip.showInifiniteBlocking();
         
-            new ListMatchForm(res).show();
+            new ListMatchFront(res).show();
                    
             refreshTheme();
         });
@@ -185,14 +186,7 @@ public class DetailMatch extends BaseForm {
 
         add(cnt);
 
-        Button btnCommander = new Button("ok");
-        addStringValue("", btnCommander);
-
-        btnCommander.addActionListener((e) -> {
-
-            new ListMatchForm(res).show();
-
-        });
+       
 
 
     }

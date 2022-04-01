@@ -17,6 +17,7 @@ import com.codename1.charts.renderers.XYMultipleSeriesRenderer.Orientation;
 import com.codename1.charts.renderers.XYSeriesRenderer;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.charts.views.PieChart;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
 import com.codename1.components.ToastBar;
@@ -28,6 +29,7 @@ import static com.codename1.ui.Component.BOTTOM;
 import static com.codename1.ui.Component.CENTER;
 import static com.codename1.ui.Component.LEFT;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
@@ -128,44 +130,49 @@ BaseForm form;
         
         ButtonGroup barGroup = new ButtonGroup();
         
-        RadioButton all = RadioButton.createToggle("Feedback", barGroup);
-       
-        all.setUIID("SelectBar");
-        RadioButton popular = RadioButton.createToggle("Categorie Match", barGroup);
-        popular.setUIID("SelectBar");
-        RadioButton feedback = RadioButton.createToggle("Feedback", barGroup);
-        feedback.setUIID("SelectBar");
-        RadioButton profile = RadioButton.createToggle("Statistique", barGroup);
-        profile.setUIID("SelectBar");
-        Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
         
-        add(LayeredLayout.encloseIn(
-                GridLayout.encloseIn(3, all, popular,profile),
-                FlowLayout.encloseBottom(arrow)
-        ));
-        all.setSelected(true);
-        arrow.setVisible(false);
-        addShowListener(e -> {
-            arrow.setVisible(true);
-            updateArrowPosition(all, arrow);
-           
-        });
-        bindButtonSelection(all, arrow);
-        bindButtonSelection(popular, arrow);
-                all.addActionListener((e)->{
+        RadioButton  produits = RadioButton.createToggle("Match", barGroup);
+        produits.setUIID("SelectBar");
+        RadioButton detailProduit = RadioButton.createToggle("Statistique", barGroup);
+        detailProduit.setUIID("SelectBar");
+        Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
+
+        
+         produits.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+        
+            new ListMatchFront(res).show();
+                   
+            refreshTheme();
         });
 
-                 popular.setSelected(true);
+        detailProduit.addActionListener((e) -> {
+            InfiniteProgress ip = new InfiniteProgress();
+
+            final Dialog ipDlg = ip.showInifiniteBlocking();
+        
+           
+            new StatistiquePieForm(res).show();
+                   
+            refreshTheme();
+        });
+
+
+        add(LayeredLayout.encloseIn(
+                GridLayout.encloseIn(2, produits, detailProduit),
+                FlowLayout.encloseBottom(arrow)
+        ));
+
+        detailProduit.setSelected(true);
         arrow.setVisible(false);
         addShowListener(e -> {
             arrow.setVisible(true);
-            updateArrowPosition(profile, arrow);
+            updateArrowPosition(detailProduit, arrow);
         });
-        bindButtonSelection(profile, arrow);
-                profile.addActionListener((e)->{
-                  new StatistiquePieForm(res).show();
-                  
-        });
+        bindButtonSelection(produits, arrow);
+        bindButtonSelection(detailProduit, arrow);
         // special case for rotation
         addOrientationListener(e -> {
             updateArrowPosition(barGroup.getRadioButton(barGroup.getSelectedIndex()), arrow);

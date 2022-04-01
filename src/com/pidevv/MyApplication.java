@@ -15,6 +15,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
 import com.mycompany.gui.AjoutMatchForm;
 import com.mycompany.gui.ListMatchForm;
+import com.mycompany.gui.ListMatchFront;
 import com.mycompany.gui.StatistiquePieForm;
 import com.mycompany.gui.homeForm;
 
@@ -56,7 +57,7 @@ public class MyApplication {
             return;
         }
         //new homeForm().show();
-       new ListMatchForm(theme).show();
+       new ListMatchFront(theme).show();
       //new StatistiquePieForm(theme).show();
     }
 
