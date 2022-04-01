@@ -87,6 +87,9 @@ public class BaseForm extends Form {
         tb.addMaterialCommandToSideMenu("Notre Boutique", FontImage.MATERIAL_ADD_SHOPPING_CART, e -> new ListProduitsForm(res).show());
         tb.addMaterialCommandToSideMenu("Mes Commandes", FontImage.MATERIAL_APP_REGISTRATION, e -> new MesCommandesForm(res).show());
         tb.addMaterialCommandToSideMenu("Mes Favoris", FontImage.MATERIAL_FAVORITE, e -> new ListFavorisForm(res).show());
+        tb.addMaterialCommandToSideMenu("Statistique", FontImage.MATERIAL_TRENDING_UP, e -> new Statequipe(res).show());
+        tb.addMaterialCommandToSideMenu("Equipe", FontImage.MATERIAL_SPORTS_SOCCER, e -> new ListEquipeForm(res).show());
+        tb.addMaterialCommandToSideMenu("Joueur", FontImage.MATERIAL_FACE, e -> new ListJoueurForm(res).show());
         tb.addMaterialCommandToSideMenu("Agences", FontImage.MATERIAL_FAVORITE, e -> new ListAgencesForm(res).show());
                 tb.addMaterialCommandToSideMenu("Mes réservation", FontImage.MATERIAL_FAVORITE, e -> new ListReservationForm(res).show());
 
