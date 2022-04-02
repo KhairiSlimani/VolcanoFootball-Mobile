@@ -32,8 +32,10 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompany.entities.Artiste;
 import com.mycompany.entities.Commande;
 import com.mycompany.entities.Produit;
+import com.mycompany.services.ServiceArtiste;
 import com.mycompany.services.ServiceCommande;
 import com.mycompany.services.ServiceProduit;
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class ListArtistesForm extends BaseForm {
     Form current;
     public ListArtistesForm (Resources res)
     {
-                super("Newsfeed", BoxLayout.y());
+        super("Newsfeed", BoxLayout.y());
         Toolbar tb = new Toolbar(true);
         current=this;
         setToolbar(tb);
@@ -109,7 +111,7 @@ public class ListArtistesForm extends BaseForm {
         add(LayeredLayout.encloseIn(swipe, radioContainer));
 
         ButtonGroup barGroup = new ButtonGroup();
-        RadioButton commandes = RadioButton.createToggle("Mes Commandes", barGroup);
+        RadioButton commandes = RadioButton.createToggle("Les Artistes", barGroup);
         commandes.setUIID("SelectBar");
         Label arrow = new Label(res.getImage("news-tab-down-arrow.png"), "Container");
 
@@ -119,7 +121,7 @@ public class ListArtistesForm extends BaseForm {
 
             final Dialog ipDlg = ip.showInifiniteBlocking();
         
-            new MesCommandesForm(res).show();
+            new ListArtistesForm(res).show();
                    
             refreshTheme();
         });
@@ -145,14 +147,14 @@ public class ListArtistesForm extends BaseForm {
         // End Design
         
         
-        ArrayList<Commande>list = ServiceCommande.getInstance().AfficherCommandes(SessionManager.getId());
+        ArrayList<Artiste>list = ServiceArtiste.getInstance().AfficherArtistes();
 
 
         int i = 0;
-        for(Commande c : list)
+        for(Artiste a : list)
         {
-            //i++;
-            //addCommande(c,res,i);
+            i++;
+            addArtiste(a,res,i);
         }
 
 
@@ -210,6 +212,33 @@ public class ListArtistesForm extends BaseForm {
 
         l.getUnselectedStyle().setMargin(LEFT, btn.getX() + btn.getWidth() / 2 - l.getWidth() / 2);
         l.getParent().repaint();
+    }
+
+    private void addArtiste(Artiste a, Resources res, int i) {
+        
+        Button image = new Button();
+        image.setUIID("Label");
+        Container cnt = BorderLayout.west(image);
+          
+        Label ArtisteTxt = new Label("Artiste "+i,"NewsTopLine2");
+        Label nom = new Label("Nom: "+a.getNom(),"NewsTopLine2");
+        Label type = new Label("Type: "+a.getType(),"NewsTopLine2");
+        Label age = new Label("Age: "+a.getAge(),"NewsTopLine2");
+        Label margin = new Label("","NewsTopLine2");
+        
+
+        cnt.add(BorderLayout.CENTER, BoxLayout.encloseY(
+
+            BoxLayout.encloseX(ArtisteTxt),
+            BoxLayout.encloseX(nom),
+            BoxLayout.encloseX(type),
+            BoxLayout.encloseX(age),
+            BoxLayout.encloseX(margin)
+
+        ));
+
+        add(cnt);
+
     }
 
 

@@ -44,7 +44,7 @@ public class ServiceEvenement {
     }
 
     
-    public ArrayList<Evenement> AfficherServiceEvenements()
+    public ArrayList<Evenement> AfficherEvenements()
     {
 
         ArrayList<Evenement> result = new ArrayList<>();
